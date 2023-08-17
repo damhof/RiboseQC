@@ -95,6 +95,9 @@ create_html_report <- function(input_files, input_sample_names, output_file,exte
         rmd_path <- paste(system.file(package="RiboseQC",mustWork = TRUE),"/rmd/riboseqc_template_full.Rmd",sep="")
     }
 
+    # set tmp folder outside Rpackage
+    tmp_dir = dirname(output_file)
+
     # get folder path for pdf figures
     output_fig_path <- paste(output_file,"_plots/", sep = "")
 
@@ -108,7 +111,8 @@ create_html_report <- function(input_files, input_sample_names, output_file,exte
            params = list(input_files = input_files,
                          input_sample_names = input_sample_names,
                          output_fig_path = output_fig_path),
-           output_file = output_file))
+           output_file = output_file,
+	   intermediates_dir = tmp_dir))
     gici<-gc()
     sink()
 }
